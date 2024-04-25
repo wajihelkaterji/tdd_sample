@@ -37,14 +37,20 @@ else:
     ALLOWED_HOSTS = []
 
 LOGGING = {
-    "version": 1,
-    "disable_existing_loggers": False,
-    "handlers": {
-        "console": {"class": "logging.StreamHandler"},
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+        },
     },
-    "loggers": {
-        "root": {"handlers": ["console"], "level": "INFO"},
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+        },
     },
+    'root': {'level': 'INFO'},
 }
 
 # Application definition
@@ -57,6 +63,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'lists',
+    'accounts',
+]
+
+AUTH_USER_MODEL = 'accounts.ListUser'
+AUTHENTICATION_BACKENDS = [
+    'accounts.authentication.PasswordlessAuthenticationBackend',
 ]
 
 MIDDLEWARE = [
@@ -143,3 +155,10 @@ STATIC_ROOT = BASE_DIR / "static"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'wajihelkaterji@gmail.com'
+EMAIL_HOST_PASSWORD = 'efkw msso kowv fcdn'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
